@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- iOS için gerekli meta etiketi -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Mobil QR Code Ayırıcı</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/sql-wasm.js"></script>
@@ -159,7 +161,18 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1); /* Mirror effect for front camera */
+            /* iPhone için kamera yönlendirme düzeltmesi */
+            transform: none;
+        }
+
+        /* Ön kamera kullanıldığında mirror effect uygula */
+        #video.front-camera {
+            transform: scaleX(-1);
+        }
+
+        /* Arka kamera kullanıldığında normal görünüm */
+        #video.back-camera {
+            transform: none;
         }
 
         .qr-overlay {
@@ -663,6 +676,24 @@
                 height: 70%;
             }
         }
+
+        /* iOS Safari için özel optimizasyonlar */
+        @supports (-webkit-touch-callout: none) {
+            .camera-container {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+            
+            #video {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+            
+            #video.front-camera {
+                -webkit-transform: scaleX(-1) translateZ(0);
+                transform: scaleX(-1) translateZ(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -976,6 +1007,16 @@
             }
         }
 
+        // Update video element classes based on camera type
+        function updateVideoOrientation() {
+            elements.video.classList.remove('front-camera', 'back-camera');
+            if (state.facingMode === 'user') {
+                elements.video.classList.add('front-camera');
+            } else {
+                elements.video.classList.add('back-camera');
+            }
+        }
+
         // Start camera and QR scanning
         function startScanning() {
             if (state.isScanning) return;
@@ -992,6 +1033,9 @@
                 elements.video.srcObject = stream;
                 elements.video.setAttribute('playsinline', true);
                 elements.video.play();
+                
+                // Update video orientation based on camera type
+                updateVideoOrientation();
                 
                 state.isScanning = true;
                 elements.startBtn.disabled = true;
@@ -1052,7 +1096,16 @@
             if (!state.isScanning || !elements.video.readyState) return;
             
             const context = elements.canvas.getContext('2d');
-            context.drawImage(elements.video, 0, 0, elements.canvas.width, elements.canvas.height);
+            
+            // Handle mirror effect for front camera in canvas processing
+            if (state.facingMode === 'user') {
+                context.save();
+                context.scale(-1, 1);
+                context.drawImage(elements.video, -elements.canvas.width, 0, elements.canvas.width, elements.canvas.height);
+                context.restore();
+            } else {
+                context.drawImage(elements.video, 0, 0, elements.canvas.width, elements.canvas.height);
+            }
             
             const imageData = context.getImageData(0, 0, elements.canvas.width, elements.canvas.height);
             const qrCode = jsQR(imageData.data, imageData.width, imageData.height, {
@@ -1417,8 +1470,6 @@
             }
         }
 
-        // Initialize the app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
