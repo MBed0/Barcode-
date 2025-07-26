@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Mobil Barcode & QR Ayırıcı</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <title>Mobil QR Code Ayırıcı</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/sql-wasm.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
     <style>
@@ -151,35 +151,30 @@
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 15px;
-            aspect-ratio: 4/3;
+            aspect-ratio: 1/1;
         }
 
-        #camera {
+        #video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .camera-overlay {
+        .qr-overlay {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 60%;
-            height: 30%;
+            height: 60%;
             border: 3px solid #00f2fe;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
-            animation: pulse-border 2s infinite;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+            animation: qr-pulse 2s infinite;
         }
 
-        @keyframes pulse-border {
-            0%, 100% { border-color: #00f2fe; }
-            50% { border-color: #4facfe; }
-        }
-
-        .camera-overlay::before {
-            content: 'Kodu buraya hizalayın';
+        .qr-overlay::before {
+            content: 'QR kodu buraya hizalayın';
             position: absolute;
             top: -35px;
             left: 50%;
@@ -189,6 +184,28 @@
             font-weight: 700;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
             white-space: nowrap;
+        }
+
+        .qr-overlay::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+        }
+
+        @keyframes qr-pulse {
+            0%, 100% {
+                border-color: #00f2fe;
+                box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+            }
+            50% {
+                border-color: #4facfe;
+                box-shadow: 0 0 35px rgba(79, 172, 254, 0.8);
+            }
         }
 
         .controls {
@@ -324,14 +341,14 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .barcode-raw {
+        .qr-raw {
             font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
             color: #666;
             font-size: 12px;
             margin-bottom: 5px;
         }
 
-        .barcode-parsed {
+        .qr-parsed {
             color: #333;
             font-weight: 700;
             font-size: 14px;
@@ -392,6 +409,30 @@
             max-width: 100%;
             height: auto;
             border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .qr-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
+            border-radius: 10px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .qr-code-text {
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .qr-description {
+            color: #666;
+            font-size: 12px;
+            line-height: 1.4;
         }
 
         .modal {
@@ -501,6 +542,34 @@
             font-size: 14px;
         }
 
+        .floating-action {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4);
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+
+        .floating-action:active {
+            transform: scale(0.95);
+        }
+
+        .canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
         /* iOS Safari özel stilleri */
         @supports (-webkit-touch-callout: none) {
             .btn {
@@ -537,56 +606,36 @@
         /* Landscape modda kamera optimizasyonu */
         @media (orientation: landscape) and (max-height: 500px) {
             .camera-container {
-                aspect-ratio: 16/9;
+                aspect-ratio: 4/3;
             }
             
-            .camera-overlay {
+            .qr-overlay {
                 width: 40%;
-                height: 50%;
+                height: 60%;
             }
-        }
-
-        .floating-action {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            border-radius: 50%;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4);
-            z-index: 99;
-            transition: all 0.3s ease;
-        }
-
-        .floating-action:active {
-            transform: scale(0.95);
         }
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="header">
-            <h1>📱 Mobil Barcode & QR</h1>
-            <p>Okuyun, oluşturun ve paylaşın</p>
+            <h1>🔳 Mobil QR Code</h1>
+            <p>QR kodlarını okuyun, oluşturun ve paylaşın</p>
         </div>
 
         <div class="tab-navigation">
-            <button class="tab-btn active" data-tab="scanner">📷 Tarayıcı</button>
+            <button class="tab-btn active" data-tab="scanner">📷 QR Tarayıcı</button>
             <button class="tab-btn" data-tab="generator">🎯 QR Oluştur</button>
             <button class="tab-btn" data-tab="stats">📊 İstatistik</button>
         </div>
 
-        <!-- Tarayıcı Tab -->
+        <!-- QR Tarayıcı Tab -->
         <div class="tab-content active" id="scanner">
             <div class="camera-section">
                 <div class="camera-container">
-                    <div id="camera"></div>
-                    <div class="camera-overlay"></div>
+                    <video id="video" autoplay muted playsinline></video>
+                    <canvas id="canvas" class="canvas-overlay"></canvas>
+                    <div class="qr-overlay"></div>
                 </div>
                 
                 <div class="controls three-btn">
@@ -610,7 +659,7 @@
 
                 <div class="current-scan">
                     <div id="currentResult" class="scan-empty">
-                        Barcode/QR taramaya hazır...
+                        QR kod taramaya hazır...
                     </div>
                 </div>
 
@@ -625,7 +674,7 @@
             <div class="qr-generator">
                 <div class="qr-form">
                     <div class="form-group">
-                        <label class="form-label">Araç Numarası</label>
+                        <label class="form-label">🚗 Araç Numarası</label>
                         <select class="form-select" id="carSelect">
                             <option value="1">1. Araç</option>
                             <option value="2">2. Araç</option>
@@ -636,25 +685,28 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Kutu Numarası</label>
+                        <label class="form-label">📦 Kutu Numarası</label>
                         <input type="number" class="form-input" id="boxNumber" placeholder="Kutu numarasını girin" min="1" max="999">
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Yıl (İsteğe bağlı)</label>
+                        <label class="form-label">📅 Yıl (İsteğe bağlı)</label>
                         <input type="number" class="form-input" id="yearInput" placeholder="2024" min="2020" max="2030">
                     </div>
                 </div>
 
                 <button class="btn btn-generate" id="generateBtn">
-                    🎯 QR Code Oluştur
+                    🎯 QR Kod Oluştur
                 </button>
 
                 <div class="qr-display" id="qrDisplay" style="display: none;">
                     <canvas id="qrCanvas"></canvas>
-                    <div style="margin-top: 15px; color: #666; font-size: 14px;">
-                        <div>Kod: <span id="generatedCode"></span></div>
-                        <div style="margin-top: 5px; font-size: 12px;">Bu QR kodu başka bir telefonla okutarak kutuyu araca ekleyebilirsiniz</div>
+                    <div class="qr-info">
+                        <div class="qr-code-text" id="generatedCode"></div>
+                        <div class="qr-description">
+                            Bu QR kodu başka bir telefonla okutarak kutuyu araca ekleyebilirsiniz.
+                            QR kod yüksek hata düzeltme seviyesi ile oluşturulmuştur.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -699,8 +751,10 @@
         let isScanning = false;
         let scanHistory = [];
         let db;
-        let currentBarcode = null;
+        let currentQRCode = null;
         let vibrationEnabled = true;
+        let video, canvas, context;
+        let animationId;
         const PASSWORD = "123";
 
         // HTML elementleri
@@ -733,19 +787,16 @@
             btn.addEventListener('click', () => {
                 const tabId = btn.dataset.tab;
                 
-                // Aktif tab'ı değiştir
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
                 
                 btn.classList.add('active');
                 document.getElementById(tabId).classList.add('active');
 
-                // Kamerayı durdur
                 if (tabId !== 'scanner' && isScanning) {
                     stopScanning();
                 }
 
-                // İstatistikleri güncelle
                 if (tabId === 'stats') {
                     loadStats();
                     loadStatsHistory();
@@ -788,7 +839,6 @@
                     );
                 `);
                 
-                // Başlangıç verileri
                 const checkData = db.exec("SELECT COUNT(*) as count FROM cars");
                 if (checkData[0].values[0][0] === 0) {
                     for (let i = 1; i <= 5; i++) {
@@ -796,7 +846,7 @@
                     }
                     
                     db.run(`INSERT INTO history (raw_code, parsed_code, timestamp, operation_type) 
-                           VALUES ('SISTEM', 'Mobil uygulama başlatıldı', datetime('now'), 'system')`);
+                           VALUES ('SISTEM', 'QR Code uygulaması başlatıldı', datetime('now'), 'system')`);
                 }
                 
                 loadStats();
@@ -813,7 +863,7 @@
             
             setTimeout(() => {
                 if (currentResult.innerHTML.includes(message)) {
-                    currentResult.innerHTML = '<div class="scan-empty">Tarama bekleniyor...</div>';
+                    currentResult.innerHTML = '<div class="scan-empty">QR kod taranıyor...</div>';
                 }
             }, 3000);
         }
@@ -852,15 +902,15 @@
                 const icon = row[3] === 'add' ? '➕' : row[3] === 'remove' ? '➖' : '🔄';
                 return `
                     <div class="history-item">
-                        <div class="barcode-raw">${row[0] === 'SISTEM' ? 'Sistem Mesajı' : 'Kod: ' + row[0]}</div>
-                        <div class="barcode-parsed">${icon} ${row[1]}</div>
+                        <div class="qr-raw">${row[0] === 'SISTEM' ? 'Sistem Mesajı' : 'QR Kod: ' + row[0]}</div>
+                        <div class="qr-parsed">${icon} ${row[1]}</div>
                         <div class="timestamp">${new Date(row[2]).toLocaleTimeString('tr-TR')}</div>
                     </div>
                 `;
             }).join('');
         }
 
-        function parseBarcode(code) {
+        function parseQRCode(code) {
             if (code.length >= 4) {
                 const year = code.substring(0, 2);
                 const carNumber = code.substring(2, 3);
@@ -932,80 +982,130 @@
                 }
             }
             
-            showMessage('❌ Kutu çıkarılamadı: Geçersiz barkod', 'error');
+            showMessage('❌ Kutu çıkarılamadı: Geçersiz QR kod', 'error');
             return false;
         }
 
         function updateHistoryDisplay() {
             historyDiv.innerHTML = scanHistory.map(item => `
                 <div class="history-item">
-                    <div class="barcode-raw">${item.raw === 'SISTEM' ? 'Sistem Mesajı' : 'Ham Kod: ' + item.raw}</div>
-                    <div class="barcode-parsed">${item.parsed}</div>
+                    <div class="qr-raw">${item.raw === 'SISTEM' ? 'Sistem Mesajı' : 'QR Kod: ' + item.raw}</div>
+                    <div class="qr-parsed">${item.parsed}</div>
                     <div class="timestamp">${item.time}</div>
                 </div>
             `).join('');
         }
 
+        function initCamera() {
+            video = document.getElementById('video');
+            canvas = document.getElementById('canvas');
+            context = canvas.getContext('2d');
+        }
+
         function startScanning() {
             if (isScanning) return;
 
-            Quagga.init({
-                inputStream: {
-                    name: "Live",
-                    type: "LiveStream",
-                    target: document.querySelector('#camera'),
-                    constraints: {
-                        width: { min: 640 },
-                        height: { min: 480 },
-                        facingMode: "environment"
-                    }
-                },
-                locator: {
-                    patchSize: "medium",
-                    halfSample: true
-                },
-                numOfWorkers: navigator.hardwareConcurrency || 2,
-                decoder: {
-                    readers: [
-                        "code_128_reader",
-                        "ean_reader",
-                        "ean_8_reader",
-                        "code_39_reader",
-                        "code_39_vin_reader",
-                        "codabar_reader",
-                        "upc_reader",
-                        "upc_e_reader",
-                        "i2of5_reader",
-                        "qr_reader"
-                    ]
-                },
-                locate: true
-            }, function(err) {
-                if (err) {
-                    console.error('Kamera başlatılamadı:', err);
-                    showMessage('❌ Kamera erişimi sağlanamadı', 'error');
-                    return;
+            navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: 'environment',
+                    width: { ideal: 640 },
+                    height: { ideal: 640 }
                 }
+            }).then(stream => {
+                video.srcObject = stream;
+                video.setAttribute('playsinline', true);
+                video.play();
                 
                 isScanning = true;
                 startBtn.disabled = true;
                 stopBtn.disabled = false;
                 
-                currentResult.innerHTML = '<div class="scan-result"><span class="status-indicator"></span>Kod aranıyor...</div>';
+                currentResult.innerHTML = '<div class="scan-result"><span class="status-indicator"></span>QR kod aranıyor...</div>';
                 
-                Quagga.start();
+                // Video yüklendiğinde taramaya başla
+                video.addEventListener('loadedmetadata', () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    scanQRCode();
+                });
+                
+            }).catch(err => {
+                console.error('Kamera erişimi başarısız:', err);
+                showMessage('❌ Kamera erişimi sağlanamadı', 'error');
             });
         }
 
         function stopScanning() {
             if (!isScanning) return;
             
-            Quagga.stop();
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+            }
+            
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            
             isScanning = false;
             startBtn.disabled = false;
             stopBtn.disabled = true;
             
-            currentResult.innerHTML = '<div class="scan-empty">Tarama durduruldu</div>';
+            currentResult.innerHTML = '<div class="scan-empty">QR kod taraması durduruldu</div>';
+        }
+
+        function scanQRCode() {
+            if (!isScanning) return;
+            
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                canvas.height = video.videoHeight;
+                canvas.width = video.videoWidth;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const qrCode = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "dontInvert"
+                });
+                
+                if (qrCode) {
+                    handleQRCodeDetected(qrCode.data);
+                    return; // QR kod bulundu, taramayı durdur
+                }
+            }
+            
+            animationId = requestAnimationFrame(scanQRCode);
+        }
+
+        function handleQRCodeDetected(code) {
+            currentQRCode = code;
+            const parsedCode = parseQRCode(code);
+            
+            currentResult.innerHTML = `
+                <div class="scan-result">
+                    <div style="color: #28a745; font-size: 1.2em;">✅ ${parsedCode}</div>
+                    <div style="color: #666; font-size: 0.8em; margin-top: 5px;">QR Kod: ${code}</div>
+                </div>
+            `;
+            
+            addToHistory(code, parsedCode);
+            
+            // Vibrasyon
+            if (vibrationEnabled && navigator.vibrate) {
+                navigator.vibrate([200, 100, 200]);
+            }
+            
+            // Başarı sesi (opsiyonel)
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn');
+                audio.play().catch(() => {});
+            } catch (e) {}
+            
+            // 2 saniye sonra tekrar taramaya başla
+            setTimeout(() => {
+                if (isScanning) {
+                    currentResult.innerHTML = '<div class="scan-result"><span class="status-indicator"></span>QR kod aranıyor...</div>';
+                    scanQRCode();
+                }
+            }, 2000);
         }
 
         function generateQRCode() {
@@ -1029,7 +1129,7 @@
             const qr = new QRious({
                 element: qrCanvas,
                 value: code,
-                size: 250,
+                size: 280,
                 background: 'white',
                 foreground: '#333',
                 level: 'H'
@@ -1038,7 +1138,7 @@
             generatedCode.textContent = code;
             qrDisplay.style.display = 'block';
             
-            showMessage(`✅ QR Code oluşturuldu: ${parseBarcode(code)}`, 'success');
+            showMessage(`✅ QR Kod oluşturuldu: ${parseQRCode(code)}`, 'success');
         }
 
         // Event Listeners
@@ -1057,8 +1157,8 @@
         });
 
         removeBtn.addEventListener('click', () => {
-            if (!currentBarcode) {
-                showMessage('❌ Önce bir kod tarayın', 'error');
+            if (!currentQRCode) {
+                showMessage('❌ Önce bir QR kod tarayın', 'error');
                 return;
             }
             
@@ -1076,8 +1176,8 @@
                 passwordModal.style.display = 'none';
                 passwordInput.value = '';
                 
-                const parsedCode = parseBarcode(currentBarcode);
-                removeBox(currentBarcode, parsedCode);
+                const parsedCode = parseQRCode(currentQRCode);
+                removeBox(currentQRCode, parsedCode);
             } else {
                 showMessage('❌ Hatalı şifre!', 'error');
                 passwordInput.value = '';
@@ -1093,36 +1193,17 @@
             }
         });
 
-        // QR/Barcode algılama
-        Quagga.onDetected(function(result) {
-            const code = result.codeResult.code;
-            currentBarcode = code;
-            const parsedCode = parseBarcode(code);
-            
-            currentResult.innerHTML = `
-                <div class="scan-result">
-                    <div style="color: #28a745; font-size: 1.2em;">✅ ${parsedCode}</div>
-                    <div style="color: #666; font-size: 0.8em; margin-top: 5px;">Kod: ${code}</div>
-                </div>
-            `;
-            
-            addToHistory(code, parsedCode);
-            
-            // Vibrasyon
-            if (vibrationEnabled && navigator.vibrate) {
-                navigator.vibrate([200, 100, 200]);
+        // Modal dışına tıklayınca kapatma
+        passwordModal.addEventListener('click', (e) => {
+            if (e.target === passwordModal) {
+                passwordCancel.click();
             }
-            
-            // Ses efekti (opsiyonel)
-            try {
-                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn');
-                audio.play().catch(() => {});
-            } catch (e) {}
         });
 
         // Sayfa yüklendiğinde
         window.addEventListener('load', () => {
             initDatabase();
+            initCamera();
             
             // Yıl inputuna varsayılan değer
             yearInput.value = new Date().getFullYear();
@@ -1153,6 +1234,16 @@
                 setTimeout(() => {
                     document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 300);
+            }
+        });
+
+        // Ekran döndürme desteği
+        screen.orientation?.addEventListener('change', () => {
+            if (isScanning) {
+                setTimeout(() => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                }, 500);
             }
         });
     </script>
