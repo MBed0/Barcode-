@@ -16,7 +16,7 @@
         }
 
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             overflow-x: hidden;
@@ -35,7 +35,7 @@
         .header {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
-            padding: 20px 15px 15px;
+            padding: 18px 15px;
             text-align: center;
             position: sticky;
             top: 0;
@@ -44,13 +44,13 @@
         }
 
         .header h1 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
+            font-size: 1.6rem;
+            margin-bottom: 4px;
             font-weight: 700;
         }
 
         .header p {
-            font-size: 0.9em;
+            font-size: 0.85rem;
             opacity: 0.9;
         }
 
@@ -62,27 +62,27 @@
 
         .tab-btn {
             flex: 1;
-            padding: 15px 10px;
+            padding: 14px 8px;
             border: none;
             background: transparent;
-            font-size: 14px;
+            font-size: 0.9rem;
             font-weight: 600;
             color: #666;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             border-bottom: 3px solid transparent;
         }
 
         .tab-btn.active {
             color: #4facfe;
             border-bottom-color: #4facfe;
-            background: rgba(79, 172, 254, 0.05);
         }
 
         .tab-content {
             flex: 1;
-            padding: 20px 15px;
+            padding: 16px;
             display: none;
+            overflow-y: auto;
         }
 
         .tab-content.active {
@@ -90,16 +90,16 @@
         }
 
         .stats-section {
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
-            padding: 15px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            padding: 16px;
+            border-radius: 12px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .stats-title {
-            font-size: 1.1em;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 14px;
             color: #333;
             text-align: center;
             font-weight: 700;
@@ -107,34 +107,34 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
             gap: 10px;
         }
 
         .stat-item {
             background: white;
-            padding: 12px 8px;
+            padding: 12px;
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: transform 0.15s ease;
         }
 
         .stat-item:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .stat-car {
             font-weight: 700;
             color: #4facfe;
-            font-size: 0.85em;
+            font-size: 0.8rem;
         }
 
         .stat-count {
-            font-size: 1.4em;
+            font-size: 1.3rem;
             font-weight: 800;
             color: #333;
-            margin-top: 5px;
+            margin-top: 4px;
         }
 
         .zero-boxes {
@@ -142,22 +142,24 @@
         }
 
         .camera-section {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .camera-container {
             position: relative;
             background: #000;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 14px;
             aspect-ratio: 1/1;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         #video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transform: scaleX(-1); /* Mirror effect for front camera */
         }
 
         .qr-overlay {
@@ -165,46 +167,39 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60%;
-            height: 60%;
-            border: 3px solid #00f2fe;
-            border-radius: 15px;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+            width: 70%;
+            height: 70%;
+            border: 3px solid rgba(0, 242, 254, 0.8);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
             animation: qr-pulse 2s infinite;
+            pointer-events: none;
         }
 
         .qr-overlay::before {
             content: 'QR kodu buraya hizalayın';
             position: absolute;
-            top: -35px;
+            top: -32px;
             left: 50%;
             transform: translateX(-50%);
-            color: #00f2fe;
+            color: white;
             font-size: 12px;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
             white-space: nowrap;
-        }
-
-        .qr-overlay::after {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 2px dashed rgba(255, 255, 255, 0.5);
-            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 8px;
+            border-radius: 12px;
         }
 
         @keyframes qr-pulse {
             0%, 100% {
-                border-color: #00f2fe;
-                box-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+                border-color: rgba(0, 242, 254, 0.8);
+                box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
             }
             50% {
-                border-color: #4facfe;
-                box-shadow: 0 0 35px rgba(79, 172, 254, 0.8);
+                border-color: rgba(79, 172, 254, 0.8);
+                box-shadow: 0 0 30px rgba(79, 172, 254, 0.6);
             }
         }
 
@@ -212,7 +207,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .controls.three-btn {
@@ -220,19 +215,19 @@
         }
 
         .btn {
-            padding: 15px 10px;
+            padding: 14px 10px;
             border: none;
-            border-radius: 15px;
-            font-size: 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            min-height: 50px;
+            gap: 6px;
+            min-height: 48px;
         }
 
         .btn-start {
@@ -256,7 +251,7 @@
         }
 
         .btn:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .btn:disabled {
@@ -267,22 +262,22 @@
 
         .results-section {
             background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .results-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .results-header h3 {
             color: #333;
-            font-size: 1.2em;
+            font-size: 1.1rem;
             font-weight: 700;
         }
 
@@ -290,11 +285,11 @@
             background: #dc3545;
             color: white;
             border: none;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.75rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-weight: 600;
         }
 
@@ -303,61 +298,84 @@
         }
 
         .current-scan {
-            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
+            background: linear-gradient(135deg, rgba(132, 250, 176, 0.2) 0%, rgba(143, 211, 244, 0.2) 100%);
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 14px;
             text-align: center;
-            min-height: 80px;
+            min-height: 76px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 1px dashed #84fab0;
         }
 
         .scan-result {
             color: #333;
-            font-size: 1em;
+            font-size: 0.95rem;
             font-weight: 700;
         }
 
         .scan-empty {
             color: #666;
             font-style: italic;
-            font-size: 0.9em;
+            font-size: 0.85rem;
         }
 
         .history {
-            max-height: 250px;
+            max-height: 220px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #4facfe #f1f1f1;
+        }
+
+        .history::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .history::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .history::-webkit-scrollbar-thumb {
+            background: #4facfe;
+            border-radius: 3px;
         }
 
         .history-item {
             background: white;
-            padding: 15px;
+            padding: 12px;
             margin-bottom: 8px;
-            border-radius: 10px;
+            border-radius: 8px;
             border-left: 4px solid #4facfe;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: transform 0.15s ease;
+        }
+
+        .history-item:active {
+            transform: scale(0.98);
         }
 
         .qr-raw {
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-family: monospace;
             color: #666;
-            font-size: 12px;
-            margin-bottom: 5px;
+            font-size: 0.75rem;
+            margin-bottom: 4px;
+            word-break: break-all;
         }
 
         .qr-parsed {
             color: #333;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 0.85rem;
         }
 
         .timestamp {
             color: #999;
-            font-size: 11px;
-            margin-top: 5px;
+            font-size: 0.7rem;
+            margin-top: 4px;
         }
 
         .qr-generator {
@@ -365,20 +383,20 @@
         }
 
         .qr-form {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: left;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             color: #333;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 0.85rem;
         }
 
         .form-input, .form-select {
@@ -386,9 +404,10 @@
             padding: 12px;
             border: 2px solid #e9ecef;
             border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
             -webkit-appearance: none;
+            background: white;
         }
 
         .form-input:focus, .form-select:focus {
@@ -399,39 +418,39 @@
 
         .qr-display {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         #qrCanvas {
             max-width: 100%;
             height: auto;
-            border-radius: 10px;
-            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
         }
 
         .qr-info {
-            margin-top: 15px;
-            padding: 15px;
-            background: linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%);
-            border-radius: 10px;
+            margin-top: 12px;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(230, 243, 255, 0.5) 0%, rgba(204, 231, 255, 0.5) 100%);
+            border-radius: 8px;
             border-left: 4px solid #4facfe;
         }
 
         .qr-code-text {
-            font-family: 'SF Mono', Monaco, monospace;
-            font-size: 18px;
+            font-family: monospace;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #333;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
+            margin-bottom: 6px;
+            word-break: break-all;
         }
 
         .qr-description {
             color: #666;
-            font-size: 12px;
+            font-size: 0.75rem;
             line-height: 1.4;
         }
 
@@ -446,32 +465,39 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
         }
 
         .modal-content {
             background: white;
-            padding: 25px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 16px;
             width: 100%;
-            max-width: 350px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 320px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            animation: modal-fade 0.3s ease;
+        }
+
+        @keyframes modal-fade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .modal h3 {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             color: #333;
             text-align: center;
             font-weight: 700;
+            font-size: 1.1rem;
         }
 
         .modal-input {
             width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 14px;
+            margin-bottom: 16px;
             border: 2px solid #e9ecef;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 0.95rem;
             text-align: center;
         }
 
@@ -482,13 +508,13 @@
         }
 
         .modal-btn {
-            padding: 12px 20px;
+            padding: 10px 16px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
         }
 
         .modal-submit {
@@ -503,7 +529,7 @@
         }
 
         .modal-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .status-indicator {
@@ -513,89 +539,113 @@
             background: #28a745;
             border-radius: 50%;
             margin-right: 8px;
-            animation: pulse-dot 2s infinite;
+            animation: pulse-dot 1.5s infinite;
         }
 
         @keyframes pulse-dot {
-            0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(40, 167, 69, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
         }
 
         .error-message {
             background: #f8d7da;
             color: #721c24;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
             border: 1px solid #f5c6cb;
-            font-size: 14px;
+            font-size: 0.85rem;
         }
 
         .success-message {
             background: #d4edda;
             color: #155724;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
             border: 1px solid #c3e6cb;
-            font-size: 14px;
+            font-size: 0.85rem;
         }
 
         .floating-action {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             border-radius: 50%;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
             z-index: 99;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .floating-action:active {
             transform: scale(0.95);
         }
 
-        .canvas-overlay {
+        .camera-switch {
             position: absolute;
-            top: 0;
-            left: 0;
-            pointer-events: none;
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* iOS Safari özel stilleri */
-        @supports (-webkit-touch-callout: none) {
-            .btn {
-                -webkit-appearance: none;
-                -webkit-touch-callout: none;
-            }
+        .torch-control {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Küçük ekranlar için iyileştirmeler */
+        /* Responsive adjustments */
         @media (max-width: 360px) {
             .header {
-                padding: 15px 10px 10px;
+                padding: 14px 10px;
             }
             
             .header h1 {
-                font-size: 1.5em;
+                font-size: 1.4rem;
             }
             
             .tab-content {
-                padding: 15px 10px;
+                padding: 12px 10px;
             }
             
             .btn {
-                font-size: 12px;
-                padding: 12px 8px;
-                min-height: 45px;
+                font-size: 0.8rem;
+                padding: 12px 6px;
+                min-height: 44px;
             }
             
             .stats-grid {
@@ -603,15 +653,14 @@
             }
         }
 
-        /* Landscape modda kamera optimizasyonu */
         @media (orientation: landscape) and (max-height: 500px) {
             .camera-container {
                 aspect-ratio: 4/3;
             }
             
             .qr-overlay {
-                width: 40%;
-                height: 60%;
+                width: 50%;
+                height: 70%;
             }
         }
     </style>
@@ -624,8 +673,8 @@
         </div>
 
         <div class="tab-navigation">
-            <button class="tab-btn active" data-tab="scanner">📷 QR Tarayıcı</button>
-            <button class="tab-btn" data-tab="generator">🎯 QR Oluştur</button>
+            <button class="tab-btn active" data-tab="scanner">📷 Tarayıcı</button>
+            <button class="tab-btn" data-tab="generator">🎯 Oluştur</button>
             <button class="tab-btn" data-tab="stats">📊 İstatistik</button>
         </div>
 
@@ -634,8 +683,10 @@
             <div class="camera-section">
                 <div class="camera-container">
                     <video id="video" autoplay muted playsinline></video>
-                    <canvas id="canvas" class="canvas-overlay"></canvas>
+                    <canvas id="canvas" style="display:none;"></canvas>
                     <div class="qr-overlay"></div>
+                    <button class="camera-switch" id="switchBtn" title="Kamera Değiştir">🔄</button>
+                    <button class="torch-control" id="torchBtn" title="Flaş Aç/Kapat">🔦</button>
                 </div>
                 
                 <div class="controls three-btn">
@@ -736,7 +787,7 @@
     <div class="modal" id="passwordModal">
         <div class="modal-content">
             <h3>🔐 Kutu Çıkarma</h3>
-            <input type="password" class="modal-input" id="passwordInput" placeholder="Şifreyi girin">
+            <input type="password" class="modal-input" id="passwordInput" placeholder="Şifreyi girin" autocomplete="off">
             <div class="modal-buttons">
                 <button class="modal-btn modal-cancel" id="passwordCancel">İptal</button>
                 <button class="modal-btn modal-submit" id="passwordSubmit">Onayla</button>
@@ -748,79 +799,83 @@
     <button class="floating-action" id="fabBtn" title="Vibrasyon">📳</button>
 
     <script>
-        let isScanning = false;
-        let scanHistory = [];
-        let db;
-        let currentQRCode = null;
-        let vibrationEnabled = true;
-        let video, canvas, context;
-        let animationId;
+        // State management
+        const state = {
+            isScanning: false,
+            scanHistory: [],
+            db: null,
+            currentQRCode: null,
+            vibrationEnabled: true,
+            currentStream: null,
+            facingMode: 'environment', // 'environment' or 'user'
+            torchEnabled: false,
+            scanInterval: null,
+            lastScannedCode: null,
+            lastScanTime: 0
+        };
+
+        // DOM Elements
+        const elements = {
+            startBtn: document.getElementById('startBtn'),
+            stopBtn: document.getElementById('stopBtn'),
+            clearBtn: document.getElementById('clearBtn'),
+            removeBtn: document.getElementById('removeBtn'),
+            currentResult: document.getElementById('currentResult'),
+            historyDiv: document.getElementById('history'),
+            statsGrid: document.getElementById('statsGrid'),
+            statsHistory: document.getElementById('statsHistory'),
+            passwordModal: document.getElementById('passwordModal'),
+            passwordInput: document.getElementById('passwordInput'),
+            passwordCancel: document.getElementById('passwordCancel'),
+            passwordSubmit: document.getElementById('passwordSubmit'),
+            generateBtn: document.getElementById('generateBtn'),
+            qrDisplay: document.getElementById('qrDisplay'),
+            qrCanvas: document.getElementById('qrCanvas'),
+            generatedCode: document.getElementById('generatedCode'),
+            carSelect: document.getElementById('carSelect'),
+            boxNumber: document.getElementById('boxNumber'),
+            yearInput: document.getElementById('yearInput'),
+            fabBtn: document.getElementById('fabBtn'),
+            video: document.getElementById('video'),
+            canvas: document.getElementById('canvas'),
+            switchBtn: document.getElementById('switchBtn'),
+            torchBtn: document.getElementById('torchBtn'),
+            tabBtns: document.querySelectorAll('.tab-btn'),
+            tabContents: document.querySelectorAll('.tab-content')
+        };
+
+        // Constants
         const PASSWORD = "123";
+        const SCAN_COOLDOWN = 2000; // 2 seconds between scans
+        const DEBOUNCE_TIME = 500; // 500ms debounce for same code
 
-        // HTML elementleri
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const removeBtn = document.getElementById('removeBtn');
-        const currentResult = document.getElementById('currentResult');
-        const historyDiv = document.getElementById('history');
-        const statsGrid = document.getElementById('statsGrid');
-        const statsHistory = document.getElementById('statsHistory');
-        const passwordModal = document.getElementById('passwordModal');
-        const passwordInput = document.getElementById('passwordInput');
-        const passwordCancel = document.getElementById('passwordCancel');
-        const passwordSubmit = document.getElementById('passwordSubmit');
-        const generateBtn = document.getElementById('generateBtn');
-        const qrDisplay = document.getElementById('qrDisplay');
-        const qrCanvas = document.getElementById('qrCanvas');
-        const generatedCode = document.getElementById('generatedCode');
-        const carSelect = document.getElementById('carSelect');
-        const boxNumber = document.getElementById('boxNumber');
-        const yearInput = document.getElementById('yearInput');
-        const fabBtn = document.getElementById('fabBtn');
+        // Initialize the app
+        function initApp() {
+            initDatabase();
+            setupEventListeners();
+            
+            // Set current year as default
+            elements.yearInput.value = new Date().getFullYear();
+            
+            // Try to register service worker for PWA
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            }
+        }
 
-        // Tab sistem
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabId = btn.dataset.tab;
-                
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                btn.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
-
-                if (tabId !== 'scanner' && isScanning) {
-                    stopScanning();
-                }
-
-                if (tabId === 'stats') {
-                    loadStats();
-                    loadStatsHistory();
-                }
-            });
-        });
-
-        // Vibrasyon kontrolü
-        fabBtn.addEventListener('click', () => {
-            vibrationEnabled = !vibrationEnabled;
-            fabBtn.textContent = vibrationEnabled ? '📳' : '📴';
-            showMessage(vibrationEnabled ? 'Vibrasyon açık' : 'Vibrasyon kapalı', 'success');
-        });
-
-        // Veritabanı başlatma
+        // Initialize SQL.js database
         function initDatabase() {
             const config = {
                 locateFile: filename => `https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/${filename}`
             };
             
             initSqlJs(config).then(SQL => {
-                db = new SQL.Database();
+                state.db = new SQL.Database();
                 
-                db.run(`
+                // Create tables if they don't exist
+                state.db.run(`
                     CREATE TABLE IF NOT EXISTS cars (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         car_number INTEGER NOT NULL,
@@ -829,7 +884,7 @@
                     );
                 `);
                 
-                db.run(`
+                state.db.run(`
                     CREATE TABLE IF NOT EXISTS history (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         raw_code TEXT NOT NULL,
@@ -839,77 +894,274 @@
                     );
                 `);
                 
-                const checkData = db.exec("SELECT COUNT(*) as count FROM cars");
+                // Initialize with default data if empty
+                const checkData = state.db.exec("SELECT COUNT(*) as count FROM cars");
                 if (checkData[0].values[0][0] === 0) {
                     for (let i = 1; i <= 5; i++) {
-                        db.run("INSERT INTO cars (car_number, box_count, last_updated) VALUES (?, 0, datetime('now'))", [i]);
+                        state.db.run(
+                            "INSERT INTO cars (car_number, box_count, last_updated) VALUES (?, 0, datetime('now'))", 
+                            [i]
+                        );
                     }
                     
-                    db.run(`INSERT INTO history (raw_code, parsed_code, timestamp, operation_type) 
-                           VALUES ('SISTEM', 'QR Code uygulaması başlatıldı', datetime('now'), 'system')`);
+                    state.db.run(
+                        `INSERT INTO history (raw_code, parsed_code, timestamp, operation_type) 
+                         VALUES ('SISTEM', 'QR Code uygulaması başlatıldı', datetime('now'), 'system')`
+                    );
                 }
                 
                 loadStats();
                 loadHistory();
             }).catch(err => {
-                console.error('Veritabanı hatası:', err);
+                console.error('Database error:', err);
                 showMessage('❌ Veritabanı başlatılamadı', 'error');
             });
         }
 
-        function showMessage(message, type = 'success') {
-            const className = type === 'error' ? 'error-message' : 'success-message';
-            currentResult.innerHTML = `<div class="${className}">${message}</div>`;
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Tab navigation
+            elements.tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+            });
+
+            // Scanner controls
+            elements.startBtn.addEventListener('click', startScanning);
+            elements.stopBtn.addEventListener('click', stopScanning);
+            elements.clearBtn.addEventListener('click', confirmClearData);
+            elements.removeBtn.addEventListener('click', promptRemoveBox);
+            elements.switchBtn.addEventListener('click', switchCamera);
+            elements.torchBtn.addEventListener('click', toggleTorch);
+
+            // Password modal
+            elements.passwordCancel.addEventListener('click', closePasswordModal);
+            elements.passwordSubmit.addEventListener('click', confirmRemoveBox);
+            elements.passwordInput.addEventListener('keypress', e => {
+                if (e.key === 'Enter') elements.passwordSubmit.click();
+            });
+            elements.passwordModal.addEventListener('click', e => {
+                if (e.target === elements.passwordModal) closePasswordModal();
+            });
+
+            // Generator controls
+            elements.generateBtn.addEventListener('click', generateQRCode);
+
+            // Vibration toggle
+            elements.fabBtn.addEventListener('click', toggleVibration);
+
+            // Page visibility changes
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+
+            // Before page unload
+            window.addEventListener('beforeunload', cleanupBeforeUnload);
+        }
+
+        // Switch between tabs
+        function switchTab(tabId) {
+            elements.tabBtns.forEach(b => b.classList.remove('active'));
+            elements.tabContents.forEach(c => c.classList.remove('active'));
             
-            setTimeout(() => {
-                if (currentResult.innerHTML.includes(message)) {
-                    currentResult.innerHTML = '<div class="scan-empty">QR kod taranıyor...</div>';
+            document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            // Stop scanning if switching away from scanner
+            if (tabId !== 'scanner' && state.isScanning) {
+                stopScanning();
+            }
+
+            // Load stats when switching to stats tab
+            if (tabId === 'stats') {
+                loadStats();
+                loadStatsHistory();
+            }
+        }
+
+        // Start camera and QR scanning
+        function startScanning() {
+            if (state.isScanning) return;
+
+            // Request camera access
+            navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: state.facingMode,
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
                 }
-            }, 3000);
-        }
-
-        function loadStats() {
-            const results = db.exec("SELECT car_number, box_count FROM cars ORDER BY car_number");
-            if (results.length === 0) return;
-            
-            const cars = results[0].values;
-            statsGrid.innerHTML = cars.map(car => `
-                <div class="stat-item">
-                    <div class="stat-car">${car[0]}. Araç</div>
-                    <div class="stat-count ${car[1] === 0 ? 'zero-boxes' : ''}">${car[1]} Kutu</div>
-                </div>
-            `).join('');
-        }
-
-        function loadHistory() {
-            const results = db.exec("SELECT raw_code, parsed_code, timestamp FROM history ORDER BY timestamp DESC LIMIT 20");
-            if (results.length === 0) return;
-            
-            scanHistory = results[0].values.map(row => ({
-                raw: row[0],
-                parsed: row[1],
-                time: new Date(row[2]).toLocaleTimeString('tr-TR')
-            }));
-            
-            updateHistoryDisplay();
-        }
-
-        function loadStatsHistory() {
-            const results = db.exec("SELECT raw_code, parsed_code, timestamp, operation_type FROM history ORDER BY timestamp DESC LIMIT 10");
-            if (results.length === 0) return;
-            
-            statsHistory.innerHTML = results[0].values.map(row => {
-                const icon = row[3] === 'add' ? '➕' : row[3] === 'remove' ? '➖' : '🔄';
-                return `
-                    <div class="history-item">
-                        <div class="qr-raw">${row[0] === 'SISTEM' ? 'Sistem Mesajı' : 'QR Kod: ' + row[0]}</div>
-                        <div class="qr-parsed">${icon} ${row[1]}</div>
-                        <div class="timestamp">${new Date(row[2]).toLocaleTimeString('tr-TR')}</div>
+            }).then(stream => {
+                state.currentStream = stream;
+                elements.video.srcObject = stream;
+                elements.video.setAttribute('playsinline', true);
+                elements.video.play();
+                
+                state.isScanning = true;
+                elements.startBtn.disabled = true;
+                elements.stopBtn.disabled = false;
+                
+                // Show scanning status
+                elements.currentResult.innerHTML = `
+                    <div class="scan-result">
+                        <span class="status-indicator"></span>QR kod aranıyor...
                     </div>
                 `;
-            }).join('');
+                
+                // Start scanning loop when video is ready
+                elements.video.addEventListener('loadedmetadata', () => {
+                    elements.canvas.width = elements.video.videoWidth;
+                    elements.canvas.height = elements.video.videoHeight;
+                    
+                    // Start scanning at 10fps
+                    state.scanInterval = setInterval(scanQRCode, 100);
+                });
+                
+            }).catch(err => {
+                console.error('Camera access error:', err);
+                showMessage('❌ Kamera erişimi sağlanamadı', 'error');
+            });
         }
 
+        // Stop camera and scanning
+        function stopScanning() {
+            if (!state.isScanning) return;
+            
+            // Stop scanning loop
+            if (state.scanInterval) {
+                clearInterval(state.scanInterval);
+                state.scanInterval = null;
+            }
+            
+            // Stop camera stream
+            if (state.currentStream) {
+                state.currentStream.getTracks().forEach(track => track.stop());
+                state.currentStream = null;
+            }
+            
+            // Turn off torch if enabled
+            if (state.torchEnabled) {
+                toggleTorch(false);
+            }
+            
+            state.isScanning = false;
+            elements.startBtn.disabled = false;
+            elements.stopBtn.disabled = true;
+            
+            elements.currentResult.innerHTML = '<div class="scan-empty">QR kod taraması durduruldu</div>';
+        }
+
+        // Scan for QR codes in the video stream
+        function scanQRCode() {
+            if (!state.isScanning || !elements.video.readyState) return;
+            
+            const context = elements.canvas.getContext('2d');
+            context.drawImage(elements.video, 0, 0, elements.canvas.width, elements.canvas.height);
+            
+            const imageData = context.getImageData(0, 0, elements.canvas.width, elements.canvas.height);
+            const qrCode = jsQR(imageData.data, imageData.width, imageData.height, {
+                inversionAttempts: "dontInvert"
+            });
+            
+            if (qrCode) {
+                const now = Date.now();
+                
+                // Debounce same code detection
+                if (qrCode.data === state.lastScannedCode && now - state.lastScanTime < DEBOUNCE_TIME) {
+                    return;
+                }
+                
+                state.lastScannedCode = qrCode.data;
+                state.lastScanTime = now;
+                
+                handleQRCodeDetected(qrCode.data);
+            }
+        }
+
+        // Handle detected QR code
+        function handleQRCodeDetected(code) {
+            state.currentQRCode = code;
+            const parsedCode = parseQRCode(code);
+            
+            // Update UI with detected code
+            elements.currentResult.innerHTML = `
+                <div class="scan-result">
+                    <div style="color: #28a745; font-size: 1.1em;">✅ ${parsedCode}</div>
+                    <div style="color: #666; font-size: 0.8em; margin-top: 5px;">QR Kod: ${code}</div>
+                </div>
+            `;
+            
+            // Add to history
+            addToHistory(code, parsedCode);
+            
+            // Vibrate if enabled
+            if (state.vibrationEnabled && navigator.vibrate) {
+                navigator.vibrate([100, 50, 100]);
+            }
+            
+            // Play success sound (if supported)
+            try {
+                const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU...');
+                audio.play().catch(() => {});
+            } catch (e) {}
+            
+            // Cooldown before scanning again
+            setTimeout(() => {
+                if (state.isScanning) {
+                    elements.currentResult.innerHTML = `
+                        <div class="scan-result">
+                            <span class="status-indicator"></span>QR kod aranıyor...
+                        </div>
+                    `;
+                }
+            }, SCAN_COOLDOWN);
+        }
+
+        // Switch between front and back camera
+        function switchCamera() {
+            if (!state.isScanning) return;
+            
+            state.facingMode = state.facingMode === 'environment' ? 'user' : 'environment';
+            
+            // Restart scanning with new camera
+            stopScanning();
+            setTimeout(startScanning, 300);
+        }
+
+        // Toggle torch/flashlight
+        function toggleTorch(forceState) {
+            if (!state.currentStream) return;
+            
+            const videoTrack = state.currentStream.getVideoTracks()[0];
+            if (!videoTrack || !('applyConstraints' in videoTrack)) {
+                showMessage('❌ Flaş bu cihazda desteklenmiyor', 'error');
+                return;
+            }
+            
+            state.torchEnabled = forceState !== undefined ? forceState : !state.torchEnabled;
+            
+            videoTrack.applyConstraints({
+                advanced: [{ torch: state.torchEnabled }]
+            }).then(() => {
+                elements.torchBtn.textContent = state.torchEnabled ? '💡' : '🔦';
+                elements.torchBtn.style.background = state.torchEnabled ? 
+                    'rgba(255, 255, 0, 0.7)' : 'rgba(0, 0, 0, 0.5)';
+            }).catch(err => {
+                console.error('Torch error:', err);
+                state.torchEnabled = false;
+                showMessage('❌ Flaş açılamadı', 'error');
+            });
+        }
+
+        // Toggle vibration feedback
+        function toggleVibration() {
+            state.vibrationEnabled = !state.vibrationEnabled;
+            elements.fabBtn.textContent = state.vibrationEnabled ? '📳' : '📴';
+            showMessage(state.vibrationEnabled ? 'Vibrasyon açık' : 'Vibrasyon kapalı', 'success');
+            
+            // Test vibration
+            if (state.vibrationEnabled && navigator.vibrate) {
+                navigator.vibrate(100);
+            }
+        }
+
+        // Parse QR code into readable format
         function parseQRCode(code) {
             if (code.length >= 4) {
                 const year = code.substring(0, 2);
@@ -926,29 +1178,23 @@
             }
         }
 
+        // Add scanned code to history
         function addToHistory(rawCode, parsedCode, operation = 'add') {
             const timestamp = new Date().toISOString();
             
-            db.run(
+            state.db.run(
                 "INSERT INTO history (raw_code, parsed_code, timestamp, operation_type) VALUES (?, ?, ?, ?)",
                 [rawCode, parsedCode, timestamp, operation]
             );
             
+            // Update car stats if this is an add operation
             if (operation === 'add' && rawCode.length >= 3) {
                 const carNumber = parseInt(rawCode.substring(0, 3).replace(/[^0-9]/g, '').charAt(0));
                 if (!isNaN(carNumber) && carNumber >= 1 && carNumber <= 5) {
-                    const check = db.exec("SELECT 1 FROM cars WHERE car_number = ?", [carNumber]);
-                    if (check[0] && check[0].values.length > 0) {
-                        db.run(
-                            "UPDATE cars SET box_count = box_count + 1, last_updated = ? WHERE car_number = ?",
-                            [timestamp, carNumber]
-                        );
-                    } else {
-                        db.run(
-                            "INSERT INTO cars (car_number, box_count, last_updated) VALUES (?, 1, ?)",
-                            [carNumber, timestamp]
-                        );
-                    }
+                    state.db.run(
+                        "UPDATE cars SET box_count = box_count + 1, last_updated = ? WHERE car_number = ?",
+                        [timestamp, carNumber]
+                    );
                     loadStats();
                 }
             }
@@ -956,29 +1202,65 @@
             loadHistory();
         }
 
+        // Prompt for password to remove box
+        function promptRemoveBox() {
+            if (!state.currentQRCode) {
+                showMessage('❌ Önce bir QR kod tarayın', 'error');
+                return;
+            }
+            
+            elements.passwordModal.style.display = 'flex';
+            elements.passwordInput.focus();
+        }
+
+        // Close password modal
+        function closePasswordModal() {
+            elements.passwordModal.style.display = 'none';
+            elements.passwordInput.value = '';
+        }
+
+        // Confirm box removal after password check
+        function confirmRemoveBox() {
+            if (elements.passwordInput.value === PASSWORD) {
+                closePasswordModal();
+                
+                const parsedCode = parseQRCode(state.currentQRCode);
+                const success = removeBox(state.currentQRCode, parsedCode);
+                
+                if (success && state.vibrationEnabled && navigator.vibrate) {
+                    navigator.vibrate([200, 100, 200]);
+                }
+            } else {
+                showMessage('❌ Hatalı şifre!', 'error');
+                elements.passwordInput.value = '';
+                
+                if (state.vibrationEnabled && navigator.vibrate) {
+                    navigator.vibrate([300, 100, 100, 100]);
+                }
+            }
+        }
+
+        // Remove box from car
         function removeBox(rawCode, parsedCode) {
             if (rawCode.length >= 3) {
                 const carNumber = parseInt(rawCode.substring(0, 3).replace(/[^0-9]/g, '').charAt(0));
                 if (!isNaN(carNumber) && carNumber >= 1 && carNumber <= 5) {
-                    const check = db.exec("SELECT box_count FROM cars WHERE car_number = ?", [carNumber]);
-                    if (check[0] && check[0].values.length > 0) {
-                        if (check[0].values[0][0] <= 0) {
-                            showMessage(`❌ ${carNumber}. Araçta kutu kalmadı!`, 'error');
-                            return false;
-                        }
-                        
-                        const timestamp = new Date().toISOString();
-                        db.run(
-                            "UPDATE cars SET box_count = box_count - 1, last_updated = ? WHERE car_number = ?",
-                            [timestamp, carNumber]
-                        );
-                        
-                        addToHistory(rawCode, parsedCode, 'remove');
-                        
-                        showMessage(`✅ Kutu çıkarıldı: ${parsedCode}`, 'success');
-                        loadStats();
-                        return true;
+                    const check = state.db.exec("SELECT box_count FROM cars WHERE car_number = ?", [carNumber]);
+                    if (check[0]?.values[0][0] <= 0) {
+                        showMessage(`❌ ${carNumber}. Araçta kutu kalmadı!`, 'error');
+                        return false;
                     }
+                    
+                    const timestamp = new Date().toISOString();
+                    state.db.run(
+                        "UPDATE cars SET box_count = box_count - 1, last_updated = ? WHERE car_number = ?",
+                        [timestamp, carNumber]
+                    );
+                    
+                    addToHistory(rawCode, parsedCode, 'remove');
+                    showMessage(`✅ Kutu çıkarıldı: ${parsedCode}`, 'success');
+                    loadStats();
+                    return true;
                 }
             }
             
@@ -986,8 +1268,82 @@
             return false;
         }
 
+        // Confirm clearing all data
+        function confirmClearData() {
+            if (confirm('Tüm geçmiş ve kutu sayıları silinecek. Emin misiniz?')) {
+                state.db.run("DELETE FROM history");
+                state.db.run("UPDATE cars SET box_count = 0, last_updated = datetime('now')");
+                loadHistory();
+                loadStats();
+                loadStatsHistory();
+                showMessage('✅ Veriler temizlendi', 'success');
+                
+                if (state.vibrationEnabled && navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100, 50, 100]);
+                }
+            }
+        }
+
+        // Load car statistics
+        function loadStats() {
+            const results = state.db.exec("SELECT car_number, box_count FROM cars ORDER BY car_number");
+            if (results.length === 0) return;
+            
+            const cars = results[0].values;
+            elements.statsGrid.innerHTML = cars.map(car => `
+                <div class="stat-item">
+                    <div class="stat-car">${car[0]}. Araç</div>
+                    <div class="stat-count ${car[1] === 0 ? 'zero-boxes' : ''}">${car[1]} Kutu</div>
+                </div>
+            `).join('');
+        }
+
+        // Load scan history
+        function loadHistory() {
+            const results = state.db.exec(`
+                SELECT raw_code, parsed_code, timestamp 
+                FROM history 
+                ORDER BY timestamp DESC 
+                LIMIT 20
+            `);
+            
+            if (results.length === 0) return;
+            
+            state.scanHistory = results[0].values.map(row => ({
+                raw: row[0],
+                parsed: row[1],
+                time: new Date(row[2]).toLocaleTimeString('tr-TR')
+            }));
+            
+            updateHistoryDisplay();
+        }
+
+        // Load stats history
+        function loadStatsHistory() {
+            const results = state.db.exec(`
+                SELECT raw_code, parsed_code, timestamp, operation_type 
+                FROM history 
+                ORDER BY timestamp DESC 
+                LIMIT 10
+            `);
+            
+            if (results.length === 0) return;
+            
+            elements.statsHistory.innerHTML = results[0].values.map(row => {
+                const icon = row[3] === 'add' ? '➕' : row[3] === 'remove' ? '➖' : '🔄';
+                return `
+                    <div class="history-item">
+                        <div class="qr-raw">${row[0] === 'SISTEM' ? 'Sistem Mesajı' : 'QR Kod: ' + row[0]}</div>
+                        <div class="qr-parsed">${icon} ${row[1]}</div>
+                        <div class="timestamp">${new Date(row[2]).toLocaleTimeString('tr-TR')}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Update history display
         function updateHistoryDisplay() {
-            historyDiv.innerHTML = scanHistory.map(item => `
+            elements.historyDiv.innerHTML = state.scanHistory.map(item => `
                 <div class="history-item">
                     <div class="qr-raw">${item.raw === 'SISTEM' ? 'Sistem Mesajı' : 'QR Kod: ' + item.raw}</div>
                     <div class="qr-parsed">${item.parsed}</div>
@@ -996,122 +1352,11 @@
             `).join('');
         }
 
-        function initCamera() {
-            video = document.getElementById('video');
-            canvas = document.getElementById('canvas');
-            context = canvas.getContext('2d');
-        }
-
-        function startScanning() {
-            if (isScanning) return;
-
-            navigator.mediaDevices.getUserMedia({
-                video: {
-                    facingMode: 'environment',
-                    width: { ideal: 640 },
-                    height: { ideal: 640 }
-                }
-            }).then(stream => {
-                video.srcObject = stream;
-                video.setAttribute('playsinline', true);
-                video.play();
-                
-                isScanning = true;
-                startBtn.disabled = true;
-                stopBtn.disabled = false;
-                
-                currentResult.innerHTML = '<div class="scan-result"><span class="status-indicator"></span>QR kod aranıyor...</div>';
-                
-                // Video yüklendiğinde taramaya başla
-                video.addEventListener('loadedmetadata', () => {
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    scanQRCode();
-                });
-                
-            }).catch(err => {
-                console.error('Kamera erişimi başarısız:', err);
-                showMessage('❌ Kamera erişimi sağlanamadı', 'error');
-            });
-        }
-
-        function stopScanning() {
-            if (!isScanning) return;
-            
-            if (video.srcObject) {
-                video.srcObject.getTracks().forEach(track => track.stop());
-            }
-            
-            if (animationId) {
-                cancelAnimationFrame(animationId);
-            }
-            
-            isScanning = false;
-            startBtn.disabled = false;
-            stopBtn.disabled = true;
-            
-            currentResult.innerHTML = '<div class="scan-empty">QR kod taraması durduruldu</div>';
-        }
-
-        function scanQRCode() {
-            if (!isScanning) return;
-            
-            if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                canvas.height = video.videoHeight;
-                canvas.width = video.videoWidth;
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                
-                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                const qrCode = jsQR(imageData.data, imageData.width, imageData.height, {
-                    inversionAttempts: "dontInvert"
-                });
-                
-                if (qrCode) {
-                    handleQRCodeDetected(qrCode.data);
-                    return; // QR kod bulundu, taramayı durdur
-                }
-            }
-            
-            animationId = requestAnimationFrame(scanQRCode);
-        }
-
-        function handleQRCodeDetected(code) {
-            currentQRCode = code;
-            const parsedCode = parseQRCode(code);
-            
-            currentResult.innerHTML = `
-                <div class="scan-result">
-                    <div style="color: #28a745; font-size: 1.2em;">✅ ${parsedCode}</div>
-                    <div style="color: #666; font-size: 0.8em; margin-top: 5px;">QR Kod: ${code}</div>
-                </div>
-            `;
-            
-            addToHistory(code, parsedCode);
-            
-            // Vibrasyon
-            if (vibrationEnabled && navigator.vibrate) {
-                navigator.vibrate([200, 100, 200]);
-            }
-            
-            // Başarı sesi (opsiyonel)
-            try {
-                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn+L2um4gAz2V3vPJeSsFJXfH8N2QQAoUXrTp66hVFApGn');
-                audio.play().catch(() => {});
-            } catch (e) {}
-            
-            // 2 saniye sonra tekrar taramaya başla
-            setTimeout(() => {
-                if (isScanning) {
-                    currentResult.innerHTML = '<div class="scan-result"><span class="status-indicator"></span>QR kod aranıyor...</div>';
-                    scanQRCode();
-                }
-            }, 2000);
-        }
-
+        // Generate QR code
         function generateQRCode() {
-            const car = carSelect.value;
-            const box = boxNumber.value;
-            const year = yearInput.value;
+            const car = elements.carSelect.value;
+            const box = elements.boxNumber.value;
+            const year = elements.yearInput.value;
             
             if (!box) {
                 showMessage('❌ Kutu numarası gerekli', 'error');
@@ -1125,127 +1370,55 @@
                 code = car + box.padStart(2, '0');
             }
             
-            // QR Code oluştur
+            // Generate QR code
             const qr = new QRious({
-                element: qrCanvas,
+                element: elements.qrCanvas,
                 value: code,
-                size: 280,
+                size: 260,
                 background: 'white',
                 foreground: '#333',
-                level: 'H'
+                level: 'H' // High error correction
             });
             
-            generatedCode.textContent = code;
-            qrDisplay.style.display = 'block';
+            elements.generatedCode.textContent = code;
+            elements.qrDisplay.style.display = 'block';
             
             showMessage(`✅ QR Kod oluşturuldu: ${parseQRCode(code)}`, 'success');
+            
+            // Vibrate if enabled
+            if (state.vibrationEnabled && navigator.vibrate) {
+                navigator.vibrate(100);
+            }
         }
 
-        // Event Listeners
-        startBtn.addEventListener('click', startScanning);
-        stopBtn.addEventListener('click', stopScanning);
-        
-        clearBtn.addEventListener('click', () => {
-            if (confirm('Tüm geçmiş ve kutu sayıları silinecek. Emin misiniz?')) {
-                db.run("DELETE FROM history");
-                db.run("UPDATE cars SET box_count = 0, last_updated = datetime('now')");
-                loadHistory();
-                loadStats();
-                loadStatsHistory();
-                showMessage('✅ Veriler temizlendi', 'success');
-            }
-        });
-
-        removeBtn.addEventListener('click', () => {
-            if (!currentQRCode) {
-                showMessage('❌ Önce bir QR kod tarayın', 'error');
-                return;
-            }
+        // Show message to user
+        function showMessage(message, type = 'success') {
+            const className = type === 'error' ? 'error-message' : 'success-message';
+            elements.currentResult.innerHTML = `<div class="${className}">${message}</div>`;
             
-            passwordModal.style.display = 'flex';
-            passwordInput.focus();
-        });
+            setTimeout(() => {
+                if (elements.currentResult.innerHTML.includes(message)) {
+                    elements.currentResult.innerHTML = '<div class="scan-empty">QR kod taranıyor...</div>';
+                }
+            }, 3000);
+        }
 
-        passwordCancel.addEventListener('click', () => {
-            passwordModal.style.display = 'none';
-            passwordInput.value = '';
-        });
-
-        passwordSubmit.addEventListener('click', () => {
-            if (passwordInput.value === PASSWORD) {
-                passwordModal.style.display = 'none';
-                passwordInput.value = '';
-                
-                const parsedCode = parseQRCode(currentQRCode);
-                removeBox(currentQRCode, parsedCode);
-            } else {
-                showMessage('❌ Hatalı şifre!', 'error');
-                passwordInput.value = '';
-            }
-        });
-
-        generateBtn.addEventListener('click', generateQRCode);
-
-        // Enter tuşu ile şifre onaylama
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                passwordSubmit.click();
-            }
-        });
-
-        // Modal dışına tıklayınca kapatma
-        passwordModal.addEventListener('click', (e) => {
-            if (e.target === passwordModal) {
-                passwordCancel.click();
-            }
-        });
-
-        // Sayfa yüklendiğinde
-        window.addEventListener('load', () => {
-            initDatabase();
-            initCamera();
-            
-            // Yıl inputuna varsayılan değer
-            yearInput.value = new Date().getFullYear();
-            
-            // PWA desteği
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('data:text/javascript,').catch(() => {});
-            }
-        });
-
-        // Sayfa kapanırken kamerayı durdur
-        window.addEventListener('beforeunload', () => {
-            if (isScanning) {
+        // Handle page visibility changes
+        function handleVisibilityChange() {
+            if (document.hidden && state.isScanning) {
                 stopScanning();
             }
-        });
+        }
 
-        // Görünürlük değiştiğinde
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden && isScanning) {
+        // Cleanup before page unload
+        function cleanupBeforeUnload() {
+            if (state.isScanning) {
                 stopScanning();
             }
-        });
+        }
 
-        // Dokunmatik klavye problemini çözmek için
-        window.addEventListener('resize', () => {
-            if (document.activeElement.tagName === 'INPUT') {
-                setTimeout(() => {
-                    document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-            }
-        });
-
-        // Ekran döndürme desteği
-        screen.orientation?.addEventListener('change', () => {
-            if (isScanning) {
-                setTimeout(() => {
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                }, 500);
-            }
-        });
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
